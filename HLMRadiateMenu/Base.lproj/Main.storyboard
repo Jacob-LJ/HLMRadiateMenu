@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="828-D5-PkR" kind="relationship" relationship="rootViewController" id="3mk-KI-bRH"/>
+                        <segue destination="bar-Zc-iPc" kind="relationship" relationship="rootViewController" id="3Wa-BB-EUD"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K0o-u9-25W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -131,6 +131,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dBV-sN-KXx" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="561" y="-600"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4jI-FO-lSe">
+            <objects>
+                <viewController id="bar-Zc-iPc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cWX-IZ-Cpo"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ghb-2z-84J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p0E-jO-dF7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0e2-n5-vL1">
+                                <rect key="frame" x="159.5" y="318.5" width="56" height="30"/>
+                                <state key="normal" title="ClickME"/>
+                                <connections>
+                                    <segue destination="828-D5-PkR" kind="show" id="L1v-Il-h7q"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0e2-n5-vL1" firstAttribute="centerY" secondItem="p0E-jO-dF7" secondAttribute="centerY" id="WyO-uG-Oau"/>
+                            <constraint firstItem="0e2-n5-vL1" firstAttribute="centerX" secondItem="p0E-jO-dF7" secondAttribute="centerX" id="cGi-z0-Dyx"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="l42-jq-6Q5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5w6-wR-ThQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-93.599999999999994" y="-600.44977511244383"/>
         </scene>
     </scenes>
 </document>

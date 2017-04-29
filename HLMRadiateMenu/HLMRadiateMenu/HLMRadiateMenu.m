@@ -199,6 +199,16 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
         item.center = item.startPoint;
         item.delegate = self;
         [self insertSubview:item belowSubview:self.startButton];
+        
+        /**< 第一次添加到 view 上时即进行缩放动画， 防止 item 大小不同 startButton 不能完全遮挡 */
+        if (![item.layer animationKeys]) {
+            CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+            scaleAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1.0)], [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 1.0)]];
+            scaleAnimation.duration = _animationDuration/4.0;
+            scaleAnimation.removedOnCompletion = NO;
+            scaleAnimation.fillMode = kCAFillModeBoth;
+            [item.layer addAnimation:scaleAnimation forKey:@"firstScaleAnimate"];
+        }
     }
 }
 
@@ -253,7 +263,7 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
     HLMRadiateMenuItem *item = (HLMRadiateMenuItem *)[self viewWithTag:tag];
     
     CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    scaleAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1.0)], [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
+    scaleAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 1.0)], [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)]];
     scaleAnimation.duration = _animationDuration/2.0;
     
     
@@ -285,7 +295,7 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
         [animationgroup setValue:@"firstAnimation" forKey:@"id"];
     }
     
-    [item.layer removeAnimationForKey:@"Close"];
+    [item.layer removeAllAnimations];
     [item.layer addAnimation:animationgroup forKey:@"Expand"];
     item.center = item.endPoint;
     
@@ -371,6 +381,7 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
     CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
     animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
     animationgroup.duration = _animationDuration;
+    animationgroup.removedOnCompletion = NO;
     animationgroup.fillMode = kCAFillModeForwards;
     
     return animationgroup;
@@ -391,6 +402,7 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
     CAAnimationGroup *animationgroup = [CAAnimationGroup animation];
     animationgroup.animations = [NSArray arrayWithObjects:positionAnimation, scaleAnimation, opacityAnimation, nil];
     animationgroup.duration = _animationDuration;
+    animationgroup.removedOnCompletion = NO;
     animationgroup.fillMode = kCAFillModeForwards;
     
     return animationgroup;
