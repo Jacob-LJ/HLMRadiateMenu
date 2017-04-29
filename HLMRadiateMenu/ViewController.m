@@ -50,6 +50,7 @@
     
     hlmMenu.delegate = self;
     
+    hlmMenu.equalSize = NO;
     hlmMenu.nearRadius = 90.0f;
     hlmMenu.endRadius = 100.0f;
     hlmMenu.farRadius = 110.0f;

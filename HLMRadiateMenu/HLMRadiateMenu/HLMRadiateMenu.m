@@ -66,17 +66,18 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
 - (void)setUPInit {
     self.backgroundColor = [UIColor clearColor];
     
-    self.nearRadius = kHLMRadiateMenuDefaultNearRadius;
-    self.endRadius = kHLMRadiateMenuDefaultEndRadius;
-    self.farRadius = kHLMRadiateMenuDefaultFarRadius;
-    self.timeOffset = kHLMRadiateMenuDefaultTimeOffset;
-    self.rotateAngle = kHLMRadiateMenuDefaultRotateAngle;
-    self.menuWholeAngle = kHLMRadiateMenuDefaultMenuWholeAngle;
-    self.startPoint = CGPointMake(kHLMRadiateMenuDefaultStartPointX, kHLMRadiateMenuDefaultStartPointY);
-    self.expandRotation = kHLMRadiateMenuDefaultExpandRotation;
-    self.closeRotation = kHLMRadiateMenuDefaultCloseRotation;
-    self.animationDuration = kHLMRadiateMenuDefaultAnimationDuration;
-    self.rotateAddButton = YES;
+    _equalSize = YES;
+    _nearRadius = kHLMRadiateMenuDefaultNearRadius;
+    _endRadius = kHLMRadiateMenuDefaultEndRadius;
+    _farRadius = kHLMRadiateMenuDefaultFarRadius;
+    _timeOffset = kHLMRadiateMenuDefaultTimeOffset;
+    _rotateAngle = kHLMRadiateMenuDefaultRotateAngle;
+    _menuWholeAngle = kHLMRadiateMenuDefaultMenuWholeAngle;
+    _startPoint = CGPointMake(kHLMRadiateMenuDefaultStartPointX, kHLMRadiateMenuDefaultStartPointY);
+    _expandRotation = kHLMRadiateMenuDefaultExpandRotation;
+    _closeRotation = kHLMRadiateMenuDefaultCloseRotation;
+    _animationDuration = kHLMRadiateMenuDefaultAnimationDuration;
+    _rotateAddButton = YES;
     
     _shadowViewColor = [UIColor colorWithWhite:0 alpha:0.8];
     _showGrayShadowView = YES;
@@ -201,13 +202,15 @@ static CGPoint HLMRadiateMenu_RotateCGPointAroundCenter(CGPoint point, CGPoint c
         [self insertSubview:item belowSubview:self.startButton];
         
         /**< 第一次添加到 view 上时即进行缩放动画， 防止 item 大小不同 startButton 不能完全遮挡 */
-        if (![item.layer animationKeys]) {
-            CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-            scaleAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1.0)], [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 1.0)]];
-            scaleAnimation.duration = _animationDuration/4.0;
-            scaleAnimation.removedOnCompletion = NO;
-            scaleAnimation.fillMode = kCAFillModeBoth;
-            [item.layer addAnimation:scaleAnimation forKey:@"firstScaleAnimate"];
+        if (!_equalSize) {
+            if (![item.layer animationKeys]) {
+                CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+                scaleAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.1, 0.1, 1.0)], [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01, 0.01, 1.0)]];
+                scaleAnimation.duration = _animationDuration/4.0;
+                scaleAnimation.removedOnCompletion = NO;
+                scaleAnimation.fillMode = kCAFillModeBoth;
+                [item.layer addAnimation:scaleAnimation forKey:@"firstScaleAnimate"];
+            }
         }
     }
 }
